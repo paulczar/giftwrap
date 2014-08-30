@@ -53,7 +53,7 @@ class GerritReview(object):
                 dependencies.append(line)
 
         if string:
-            return ('\n').join(dependencies)
+            return (' ').join(dependencies)
         return dependencies
 
     def _get_rest_client(self):

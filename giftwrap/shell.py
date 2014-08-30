@@ -34,12 +34,12 @@ def build(args):
 
         buildspec = BuildSpec(manifest)
 
-        if args.type == 'package':
-            builder = Builder(buildspec)
-        elif args.type == 'docker':
-            builder = Docker(buildspec)
-
-        builder.build()
+        for format in args.format.split(','):
+            if format == 'package':
+                builder = Builder(buildspec)
+            elif format == 'docker':
+                builder = Docker(buildspec)
+            builder.build()
 
     except Exception as e:
         LOG.exception("Unable to parse manifest. Error: %s", e)
@@ -58,8 +58,7 @@ def main():
     build_subcmd = subparsers.add_parser('build',
                                          description='build giftwrap packages')
     build_subcmd.add_argument('-m', '--manifest', required=True)
-    build_subcmd.add_argument('-t', '--type', default='package')
-
+    build_subcmd.add_argument('-f', '--format', default='package')
     build_subcmd.set_defaults(func=build)
 
     args = parser.parse_args()

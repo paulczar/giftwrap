@@ -20,7 +20,23 @@ Usage
     $ git clone git@github.com:cloudcadre/giftwrap.git
     $ cd giftwrap
     $ pip install .
-    $ giftwrap -h
+    $ giftwrap [--debug] build --format=[docker,package] --manifest=./sample.yml
+
+Examples
+--------
+
+Use the provided `sample.yml` file to create debian packages:
+
+    $ giftwrap build --manifest=~/giftwrap/sample.yml
+
+Use the provided `sample.yml` file to create a docker image:
+
+    $ giftwrap build --format=docker --manifest=~/giftwrap/sample.yml
+
+Use the provided `sample.yml` file to create both docker image and debian packages:
+
+    $ giftwrap build --format=package,docker --manifest=~/giftwrap/sample.yml
+
 
 Dependencies
 ============
