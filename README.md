@@ -17,7 +17,9 @@ With all of this in mind, it seemed to me that we already had all of the informa
 Usage
 =====
 
-    $ pip install giftwrap
+    $ git clone git@github.com:cloudcadre/giftwrap.git
+    $ cd giftwrap
+    $ pip install .
     $ giftwrap -h
 
 Dependencies
@@ -30,6 +32,7 @@ Development
 ===========
 
     $ git clone git@github.com:cloudcadre/giftwrap.git
+    $ cd giftwrap
     $ vagrant up
 
 Testing

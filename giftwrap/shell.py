@@ -20,6 +20,7 @@ import sys
 from giftwrap import log
 from giftwrap.build_spec import BuildSpec
 from giftwrap.builder import Builder
+from giftwrap.builder import Docker
 
 LOG = log.get_logger()
 
@@ -28,13 +29,18 @@ def build(args):
     """ the entry point for all build subcommand tasks """
     try:
         manifest = None
-
         with open(args.manifest, 'r') as fh:
             manifest = fh.read()
 
         buildspec = BuildSpec(manifest)
-        builder = Builder(buildspec)
+
+        if args.type == 'package':
+            builder = Builder(buildspec)
+        elif args.type == 'docker':
+            builder = Docker(buildspec)
+
         builder.build()
+
     except Exception as e:
         LOG.exception("Unable to parse manifest. Error: %s", e)
         sys.exit(-1)
@@ -52,6 +58,8 @@ def main():
     build_subcmd = subparsers.add_parser('build',
                                          description='build giftwrap packages')
     build_subcmd.add_argument('-m', '--manifest', required=True)
+    build_subcmd.add_argument('-t', '--type', default='package')
+
     build_subcmd.set_defaults(func=build)
 
     args = parser.parse_args()
